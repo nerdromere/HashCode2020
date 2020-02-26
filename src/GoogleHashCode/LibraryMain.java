@@ -9,7 +9,8 @@ import java.io.FileNotFoundException;
 
 public class LibraryMain {
     public static void main(String[] args) throws FileNotFoundException {
-        File inputFile = new File("src/GoogleHashCode/a_example.txt");
+        File inputFile = new File("src/GoogleHashCode/c_incunabula.txt");
+        
         Scanner input = new Scanner(inputFile);
         String firstLine = input.nextLine();
         String[] arr = firstLine.split(" ");
