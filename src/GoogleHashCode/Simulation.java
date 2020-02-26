@@ -1,5 +1,8 @@
 package GoogleHashCode;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class Simulation {
@@ -22,7 +25,7 @@ public class Simulation {
     }
 
 
-    public void start(){
+    public void start() throws FileNotFoundException{
         Library thatsShipping = null;
         for (int days = 0; days < totalDays; days++) {
             //scan all current books
@@ -52,17 +55,23 @@ public class Simulation {
                 }
             }
         }
+        PrintWriter p = new PrintWriter(new File("c_incunabula.txt"));
         long total = 0;
         System.out.println(librariesScanning.size());
+        p.println(librariesScanning.size());
         for (int i = 0; i < librariesScanning.size(); i++) {
+            p.println(librariesScanning.get(i).id + " " + librariesScanning.get(i).submission.size());
             System.out.print(librariesScanning.get(i).id + " " + librariesScanning.get(i).submission.size());
             System.out.println("");
             for (int j = 0; j < librariesScanning.get(i).submission.size(); j++) {
+                p.print(librariesScanning.get(i).submission.get(j).getId() + " ");
                 System.out.print(librariesScanning.get(i).submission.get(j).getId() + " ");
                 total += librariesScanning.get(i).submission.get(j).getScore();
         }
+            p.println();
             System.out.println("");
         }
+        p.close();
         System.out.println(total);
            
     }
@@ -84,7 +93,7 @@ public class Simulation {
                         //bookArray[book].setVisited(true);
                     }
                 }
-                libraries.get(library).setPossiblePoints(score);
+                libraries.get(library).setPossiblePoints(score/libraries.get(library).getSignUpTime());
             }
         }
     }
